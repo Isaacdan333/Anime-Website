@@ -4,9 +4,23 @@ const GlobalContext = createContext();
 
 const baseURL = "https://api.jikan.moe/v4"
 
+// actions
+const loading = "LOADING";
+const search = "SEARCH";
+const get_popular_anime = "GET_POPULAR_ANIME";
+const get_upcoming_anime= "GET_UPCOMING_ANIME"
+const get_airing_anime = "GET_AIRING_ANIME";
+
 //reducer
 const reducer = (state, action) => {
-    return state;
+    switch(action.type){
+        case loading:
+            return{...state, loading: true}
+        case get_popular_anime:
+            return{...state, popularAnime: action.payload, loading: false}
+        default:
+            return state;
+    }
 }
 
 
@@ -26,9 +40,10 @@ export const GlobalContextProvider = ({children}) => {
 
     //FETCHING POPULAR ANIME
     const getPopularAnime = async () => {
+        dispatch({type: loading})
         const response = await fetch(`${baseURL}/top/anime?filter=bypopularity`);
         const data = await response.json();
-        console.log(data.data);
+        dispatch({type: get_popular_anime, payload: data.data})
     }
 
     //initial render
