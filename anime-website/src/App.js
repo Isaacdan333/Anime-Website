@@ -1,15 +1,17 @@
 import logo from './logo.svg';
 import './App.css';
 import Popular from './Components/Popular';
-import { GlobalContextUse } from './context/global';
+import {BrowserRouter} from "react-router-dom"
+
 
 function App() {
-  const global = GlobalContextUse()
-  console.log(global)
+  
   return (
-    <div className="App">
-      <Popular />
-    </div>
+    <BrowserRouter>
+      <div className="App">
+        <Popular />
+      </div>
+    </BrowserRouter>
   );
 }
 
